@@ -26,7 +26,7 @@ int main(){
     close(fd[1]);
     int x;
     read(fd[0], &x, sizeof(x));
-    x = x + x/2;
+    x += 256;
     close(fdd[0]);
     write(fdd[1], &x, sizeof(x));
     printf("Child performed operation, and now sending back \n");
@@ -35,8 +35,11 @@ int main(){
   //Finally, the parent reads the new value from the child
   if(f){
     close(fdd[1]);
+    wait(NULL);
     int x;
     read(fdd[1], &x, sizeof(x));
     printf("Parent received a new value of: %d \n", x);
   }
+
+  return 0;
 }
