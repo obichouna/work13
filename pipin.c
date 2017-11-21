@@ -17,7 +17,7 @@ int main(){
   if (f){
     close(fd[0]);
     int x = 64;
-    write(fd[1], *x, sizeof(x));
+    write(fd[1], &x, sizeof(x));
     printf("Parent sending %d\n", x);
   }
 
@@ -25,10 +25,10 @@ int main(){
   if(!f){
     close(fd[1]);
     int x;
-    read(fd[0], *x, sizeof(x));
+    read(fd[0], &x, sizeof(x));
     x = x + x/2;
     close(fdd[0]);
-    write(fdd[1], *x, sizeof(x));
+    write(fdd[1], &x, sizeof(x));
     printf("Child performed operation, and now sending back \n");
   }
 
@@ -36,7 +36,7 @@ int main(){
   if(f){
     close(fdd[1]);
     int x;
-    read(fdd[1], *x, sizeof(x));
+    read(fdd[1], &x, sizeof(x));
     printf("Parent received a new value of: %d \n", x);
   }
 }
